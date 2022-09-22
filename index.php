@@ -22,7 +22,7 @@ require_once 'dbconfig.php';
             <div class="col-md-12">
                 <h3>PHP CRUD Operations using PDO Extension</h3>
                 <hr />
-                <a href="insert.php"><button class="btn btn-primary"> Insert Record</button></a>
+                <a href="insert.php"><button class="btn btn-primary"> Back to insert Page</button></a>
                 <div class="table-responsive">
                     <table id="mytable" class="table table-bordred table-striped">
                         <thead>
@@ -84,13 +84,13 @@ require_once 'dbconfig.php';
 // Code for record deletion
 if (isset($_REQUEST['del'])) {
     //Get row id
-    $uid = intval($_GET['del']);
+    $id = ($_GET['del']);
     //Qyery for deletion
     $sql = "delete from tblusers WHERE  CardID=:CardID";
     // Prepare query for execution
     $query = $dbh->prepare($sql);
     // bind the parameters
-    $query->bindParam(':CardID', $uid, PDO::PARAM_STR);
+    $query->bindParam(':CardID', $id, PDO::PARAM_STR);
     // Query Execution
     $query->execute();
     // Mesage after updation

@@ -1,12 +1,12 @@
 <?php
-// Get the userid
+// Get the cardid
 require_once 'dbconfig.php';
-$userid = intval($_GET['id']);
-$sql = "SELECT CardID,`Image`,Model,Price,Color,PostingDate from tblusers where CardID=:uid";
+$CardID = ($_REQUEST['cid']);
+$sql = "SELECT CardID,`Image`,Model,Price,Color,PostingDate from tblusers where CardID=:Cid";
 //Prepare the query:
 $query = $dbh->prepare($sql);
 //Bind the parameters
-$query->bindParam(':uid', $userid, PDO::PARAM_STR);
+$query->bindParam(':Cid', $CardID, PDO::PARAM_STR);
 //Execute the query:
 $query->execute();
 //Assign the data which you pulled from the database (in the preceding step) to a variable.
@@ -20,28 +20,28 @@ if ($query->rowCount() > 0) {
         <form name="insertrecord" method="post">
             <div class="row">
                 <div class="col-md-4"><b>CardID</b>
-                    <input type="text" name="firstname" value="<?php echo htmlentities($result->CardID); ?>" class="form-control" required>
+                    <input type="text" name="CardID" value="<?php echo ($result->CardID); ?>" class="form-control" required>
                 </div>
                 <div class="col-md-4"><b>Image</b>
-                    <input type="text" name="lastname" value="<?php echo htmlentities($result->Image); ?>" class="form-control" required>
+                    <input type="text" name="Image" value="<?php echo ($result->Image); ?>" class="form-control" required>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4"><b>Model</b>
-                    <input type="text" name="emailid" value="<?php echo htmlentities($result->Model); ?>" class="form-control" required>
+                    <input type="text" name="Model" value="<?php echo ($result->Model); ?>" class="form-control" required>
                 </div>
             </div>
 
 
             <div class="row">
                 <div class="col-md-4"><b>Price</b>
-                    <input type="text" name="contactno" value="<?php echo htmlentities($result->Price); ?>" class="form-control" maxlength="10" required>
+                    <input type="text" name="Price" value="<?php echo ($result->Price); ?>" class="form-control" maxlength="10" required>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-4"><b>color</b>
-                    <input type="text" name="address" value="<?php echo htmlentities($result->Color); ?>" class="form-control" maxlength="10" required>
+                    <input type="text" name="color" value="<?php echo ($result->Color); ?>" class="form-control" maxlength="10" required>
                 </div>
             </div>
     <?php }
@@ -58,25 +58,22 @@ if ($query->rowCount() > 0) {
         // include database connection file
         require_once 'dbconfig.php';
         if (isset($_POST['update'])) {
-            // Get the userid
-            $userid = intval($_GET['id']);
-            // Posted Values
-            $fname = $_POST['firstname'];
-            $lname = $_POST['lastname'];
-            $emailid = $_POST['emailid'];
-            $contactno = $_POST['contactno'];
-            $address = $_POST['address'];
+                    // Posted Values
+            $CardID = $_POST['CardID'];
+            $Image = $_POST['Image'];
+            $Model = $_POST['Model'];
+            $Price = $_POST['Price'];
+            $color = $_POST['color'];
             // Query for Updation
-            $sql = "update tblusers set CardId=:fn,Image=:ln,Model=:eml,Price=:cno,Color=:adrss where CardID=:uid";
+            $sql = "update tblusers set CardId=:Cid,Image=:img,Model=:mdl,Price=:prc,Color=:clr where CardID=:Cid";
             //Prepare Query for Execution
             $query = $dbh->prepare($sql);
             // Bind the parameters
-            $query->bindParam(':fn', $fname, PDO::PARAM_STR);
-            $query->bindParam(':ln', $lname, PDO::PARAM_STR);
-            $query->bindParam(':eml', $emailid, PDO::PARAM_STR);
-            $query->bindParam(':cno', $contactno, PDO::PARAM_STR);
-            $query->bindParam(':adrss', $address, PDO::PARAM_STR);
-            $query->bindParam(':uid', $userid, PDO::PARAM_STR);
+            $query->bindParam(':Cid', $CardID, PDO::PARAM_STR);
+            $query->bindParam(':img', $Image, PDO::PARAM_STR);
+            $query->bindParam(':mdl', $Model, PDO::PARAM_STR);
+            $query->bindParam(':prc', $Price, PDO::PARAM_STR);
+            $query->bindParam(':clr', $color, PDO::PARAM_STR);
             // Query Execution
             $query->execute();
             // Mesage after updation
